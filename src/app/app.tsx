@@ -1,3 +1,9 @@
+import { AppHeader } from "@/features/header";
+
 export function App() {
-  return <div>Hello world</div>;
+  return (
+    <div>
+      <AppHeader />
+    </div>
+  );
 }
