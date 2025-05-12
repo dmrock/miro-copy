@@ -1,67 +1,65 @@
-import boundaries from "eslint-plugin-boundaries";
+import boundaries from 'eslint-plugin-boundaries';
 
 export const eslintBoundariesConfig = {
   plugins: {
     boundaries,
   },
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
       },
     },
 
-    "boundaries/elements": [
+    'boundaries/elements': [
       {
-        type: "app",
-        pattern: "./src/app",
+        type: 'app',
+        pattern: './src/app',
       },
       {
-        type: "features",
-        pattern: "./src/features/*",
+        type: 'features',
+        pattern: './src/features/*',
       },
       {
-        type: "shared",
-        pattern: "./src/shared",
+        type: 'shared',
+        pattern: './src/shared',
       },
     ],
   },
   rules: {
-    "boundaries/element-types": [
+    'boundaries/element-types': [
       2,
       {
-        default: "allow",
+        default: 'allow',
         rules: [
           {
-            from: "shared",
-            disallow: ["app", "features"],
-            message:
-              "Lower layer module (${file.type}) cannot import higher layer module (${dependency.type})",
+            from: 'shared',
+            disallow: ['app', 'features'],
+            message: 'Lower layer module (${file.type}) cannot import higher layer module (${dependency.type})',
           },
           {
-            from: "features",
-            disallow: ["app"],
-            message:
-              "Lower layer module (${file.type}) cannot import higher layer module (${dependency.type})",
+            from: 'features',
+            disallow: ['app'],
+            message: 'Lower layer module (${file.type}) cannot import higher layer module (${dependency.type})',
           },
         ],
       },
     ],
-    "boundaries/entry-point": [
+    'boundaries/entry-point': [
       2,
       {
-        default: "disallow",
+        default: 'disallow',
         message:
-          "Module (${file.type}) must be imported through public API. Direct import from ${dependency.source} is forbidden",
+          'Module (${file.type}) must be imported through public API. Direct import from ${dependency.source} is forbidden',
 
         rules: [
           {
-            target: ["shared", "app"],
-            allow: "**",
+            target: ['shared', 'app'],
+            allow: '**',
           },
           {
-            target: ["features"],
-            allow: "index.(ts|tsx)",
+            target: ['features'],
+            allow: 'index.(ts|tsx)',
           },
         ],
       },

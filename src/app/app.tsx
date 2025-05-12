@@ -1,4 +1,4 @@
-import { AppHeader } from "@/features/header";
+import { AppHeader } from '@/features/header';
 
 export function App() {
   return (
