@@ -1,3 +1,3 @@
 export function AppHeader() {
-  return <div>App Header</div>;
+  return <div>Header</div>;
 }
