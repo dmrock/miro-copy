@@ -8,7 +8,7 @@ export function App() {
   const isAuthPage = location.pathname === ROUTES.LOGIN || location.pathname === ROUTES.REGISTER;
 
   return (
-    <div className="bg-gray_100">
+    <div className="bg-gray-100">
       {!isAuthPage && <AppHeader />}
       <Outlet />
     </div>
