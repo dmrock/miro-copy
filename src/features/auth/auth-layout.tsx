@@ -20,7 +20,7 @@ export function AuthLayout({
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent>{form}</CardContent>
-        <CardFooter>
+        <CardFooter className="flex flex-col items-center">
           <p className="text-sm text-muted-foreground [&_a]:underline [&_a]:text-primary">{footerText}</p>
         </CardFooter>
       </Card>
