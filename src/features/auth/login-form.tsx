@@ -4,6 +4,7 @@ import { Input } from '@/shared/ui/kit/input';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useLogin } from './use-login';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -15,9 +16,9 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = form.handleSubmit((data) => {
-    console.log('Form submitted:', data);
-  });
+  const { login, isPending, errorMessage } = useLogin();
+
+  const onSubmit = form.handleSubmit(login);
 
   return (
     <Form {...form}>
@@ -48,7 +49,12 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Login</Button>
+
+        {errorMessage && <p className="text-destructive text-sm">{errorMessage}</p>}
+
+        <Button type="submit" disabled={isPending}>
+          Login
+        </Button>
       </form>
     </Form>
   );
