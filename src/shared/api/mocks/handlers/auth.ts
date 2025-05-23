@@ -10,7 +10,7 @@ const mockUsers: ApiSchemas['User'][] = [
 ];
 
 const userPasswords = new Map<string, string>();
-userPasswords.set('admin@gmail.com', '123456');
+userPasswords.set('admin@gmail.com', '12345678');
 
 const mockTokens = new Map<string, string>();
 
