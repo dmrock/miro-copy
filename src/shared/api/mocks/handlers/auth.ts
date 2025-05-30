@@ -1,6 +1,7 @@
 import type { ApiSchemas } from '../../schema';
 import { http } from '../http';
 import { delay, HttpResponse } from 'msw';
+import { createRefreshTokenCookie, generateTokens } from '../session';
 
 const mockUsers: ApiSchemas['User'][] = [
   {
@@ -33,13 +34,22 @@ export const authHandlers = [
       );
     }
 
-    const token = `mock-token-${Date.now()}`;
+    const { accessToken, refreshToken } = await generateTokens({
+      userId: user.id,
+      email: user.email,
+    });
+
     return HttpResponse.json(
       {
-        accessToken: token,
+        accessToken: accessToken,
         user,
       },
-      { status: 200 }
+      {
+        status: 200,
+        headers: {
+          'Set-Cookie': createRefreshTokenCookie(refreshToken),
+        },
+      }
     );
   }),
 
