@@ -13,8 +13,6 @@ const mockUsers: ApiSchemas['User'][] = [
 const userPasswords = new Map<string, string>();
 userPasswords.set('admin@gmail.com', '12345678');
 
-const mockTokens = new Map<string, string>();
-
 export const authHandlers = [
   http.post('/auth/login', async ({ request }) => {
     const body = await request.json();
@@ -56,6 +54,8 @@ export const authHandlers = [
   http.post('/auth/register', async ({ request }) => {
     const body = await request.json();
 
+    await delay();
+
     if (mockUsers.some((u) => u.email === body.email)) {
       return HttpResponse.json(
         {
@@ -71,17 +71,25 @@ export const authHandlers = [
       email: body.email,
     };
 
-    const token = `mock-token-${Date.now()}`;
+    const { accessToken, refreshToken } = await generateTokens({
+      userId: newUser.id,
+      email: newUser.email,
+    });
+
     mockUsers.push(newUser);
     userPasswords.set(body.email, body.password);
-    mockTokens.set(body.email, token);
 
     return HttpResponse.json(
       {
-        accessToken: token,
+        accessToken: accessToken,
         user: newUser,
       },
-      { status: 201 }
+      {
+        status: 201,
+        headers: {
+          'Set-Cookie': createRefreshTokenCookie(refreshToken),
+        },
+      }
     );
   }),
 ];
