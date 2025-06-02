@@ -1,4 +1,4 @@
-import { ROUTES } from '@/shared/model/routs';
+import { ROUTES } from '@/shared/model/routes';
 import { createBrowserRouter, redirect } from 'react-router-dom';
 import { App } from './app';
 import { Providers } from './providers';

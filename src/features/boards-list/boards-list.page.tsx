@@ -1,6 +1,6 @@
 import { rqClient } from '@/shared/api/instance';
 import { CONFIG } from '@/shared/model/config';
-import { ROUTES } from '@/shared/model/routs';
+import { ROUTES } from '@/shared/model/routes';
 import { Button } from '@/shared/ui/kit/button';
 import { Card, CardFooter, CardHeader } from '@/shared/ui/kit/card';
 import { useQueryClient } from '@tanstack/react-query';
