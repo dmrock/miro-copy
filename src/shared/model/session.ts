@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import { createGStore } from 'create-gstore';
 
 type Session = {
   userId: string;
@@ -10,7 +11,7 @@ type Session = {
 
 const TOKEN_KEY = 'token';
 
-export const useSession = () => {
+export const useSession = createGStore(() => {
   const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY));
 
   const login = (token: string) => {
@@ -26,4 +27,4 @@ export const useSession = () => {
   const session = token ? jwtDecode<Session>(token) : null;
 
   return { login, logout, session };
-};
+});
