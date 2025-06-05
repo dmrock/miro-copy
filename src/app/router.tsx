@@ -1,6 +1,7 @@
 import { ROUTES } from '@/shared/model/routes';
 import { createBrowserRouter, redirect } from 'react-router-dom';
 import { App } from './app';
+import { ProtectedRoute } from './protected-route';
 import { Providers } from './providers';
 
 export const router = createBrowserRouter([
@@ -12,12 +13,17 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: ROUTES.BOARDS,
-        lazy: () => import('@/features/boards-list/boards-list.page'),
-      },
-      {
-        path: ROUTES.BOARD,
-        lazy: () => import('@/features/board/board.page'),
+        Component: ProtectedRoute,
+        children: [
+          {
+            path: ROUTES.BOARDS,
+            lazy: () => import('@/features/boards-list/boards-list.page'),
+          },
+          {
+            path: ROUTES.BOARD,
+            lazy: () => import('@/features/board/board.page'),
+          },
+        ],
       },
       {
         path: ROUTES.LOGIN,
