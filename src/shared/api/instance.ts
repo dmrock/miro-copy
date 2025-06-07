@@ -12,11 +12,12 @@ export const rqClient = createClient(fetchClient);
 export const publicFetchClient = createFetchClient<ApiPaths>({
   baseUrl: CONFIG.API_BASE_URL,
 });
-export const publicRqClient = createClient(fetchClient);
+export const publicRqClient = createClient(publicFetchClient);
 
 fetchClient.use({
-  onRequest({ request }) {
-    const token = useSession.getState().refreshToken();
+  async onRequest({ request }) {
+    const token = await useSession.getState().refreshToken();
+
     if (token) {
       request.headers.set('Authorization', `Bearer ${token}`);
     } else {
