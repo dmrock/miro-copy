@@ -101,6 +101,28 @@ getAllBoards:
     '401':
       $ref: '../shared/responses.yaml#/UnauthorizedError'
 
+getBoardById:
+  summary: Get a board by ID
+  security:
+    - bearerAuth: []
+  parameters:
+    - name: boardId
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Board details
+      content:
+        application/json:
+          schema:
+            $ref: '#/schemas/Board'
+    '401':
+      $ref: '../shared/responses.yaml#/UnauthorizedError'
+    '404':
+      $ref: '../shared/responses.yaml#/NotFoundError'
+
 createBoard:
   summary: Create a new board
   security:
