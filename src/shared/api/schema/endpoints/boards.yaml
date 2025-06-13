@@ -31,6 +31,13 @@ schemas:
     properties:
       name:
         type: string
+  UpdateBoardFavorite:
+    type: object
+    required:
+      - isFavorite
+    properties:
+      isFavorite:
+        type: boolean
 
 getAllBoards:
   summary: Get all boards for current user
@@ -81,6 +88,32 @@ renameBoard:
   responses:
     '201':
       description: Board renamed successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/schemas/Board'
+    '401':
+      $ref: '../shared/responses.yaml#/UnauthorizedError'
+
+updateBoardFavorite:
+  summary: Update board favorite status
+  security:
+    - bearerAuth: []
+  parameters:
+    - name: boardId
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '#/schemas/UpdateBoardFavorite'
+  responses:
+    '201':
+      description: Board favorite status updated successfully
       content:
         application/json:
           schema:
